@@ -1,0 +1,17 @@
+{
+  "name": "Dragon Unit",
+  "short_name": "Dragon Unit",
+  "description": "Public anime edit asset vault for clips, SFX, presets, and project files.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070b14",
+  "theme_color": "#070b14",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

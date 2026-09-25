@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Dragon Unit | Anime Edit Assets</title>
+	<meta name="description" content="Dragon Unit is a public anime edit asset vault with downloadable clips, SFX, presets, projects, and creator resources." />
+	<meta name="theme-color" content="#070b14" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta property="og:title" content="Dragon Unit | Anime Edit Assets" />
+	<meta property="og:description" content="Browse and download anime edit assets, presets, and creator packs." />
+	<meta property="og:type" content="website" />
+	<link rel="manifest" href="/manifest.webmanifest" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="apple-touch-icon" href="/favicon.svg" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+	<style>
+		:root {
+			--bg: #070b14;
+			--panel: #0d1320;
+			--panel-2: #111a2a;
+			--line: rgba(163, 187, 221, .13);
+			--text: #eef4ff;
+			--muted: #8491aa;
+			--cyan: #6ee7f9;
+			--blue: #7c9cff;
+			--pink: #f678c7;
+			--green: #83e6ac;
+		}
+
+		* { box-sizing: border-box; }
+		html { background: var(--bg); }
+		body { min-width: 320px; margin: 0; color: var(--text); background: var(--bg); font-family: "Space Grotesk", sans-serif; }
+		button, input, select { font: inherit; }
+		button { cursor: pointer; }
+		a { color: inherit; text-decoration: none; }
+		img, canvas, svg { display: block; max-width: 100%; height: auto; }
+		html, body { overflow-x: hidden; }
+		body { -webkit-text-size-adjust: 100%; text-rendering: optimizeLegibility; }
+		button, input, select { min-height: 44px; }
+		@media (pointer: coarse) {
+			button, input, select { min-height: 44px; }
+		}
+
+		.app-shell { display: grid; grid-template-columns: 250px minmax(0, 1fr); min-height: 100vh; }
+		.app-shell[data-section="anime-clips"] { --cyan: #ff78bd; --blue: #b58cff; --pink: #ff9cda; }
+		.app-shell[data-section="sfx"] { --cyan: #83e6ac; --blue: #4fd4b1; --pink: #b3f8d0; }
+		.app-shell[data-section="presets"] { --cyan: #c39bff; --blue: #7c9cff; --pink: #f09cff; }
+		.app-shell[data-section="projects"] { --cyan: #79b8ff; --blue: #74d9ff; --pink: #9fafff; }
+		.app-shell[data-section="lili-remake"] { --cyan: #ffb477; --blue: #ff7d91; --pink: #ffd093; }
+		.app-shell[data-section="nevonae-remake"] { --cyan: #71e7db; --blue: #6ca7ff; --pink: #8ef7f0; }
+		@keyframes section-enter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+		@keyframes filter-enter { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+		@keyframes glow-pulse { 0%, 100% { box-shadow: 0 0 0 rgba(110, 231, 249, 0); } 50% { box-shadow: 0 0 28px color-mix(in srgb, var(--cyan) 16%, transparent); } }
+		.app-shell.is-switching .hero-copy { animation: section-enter .48s ease both; }
+		.app-shell.is-switching .hero { animation: glow-pulse .7s ease both; }
+		.app-shell.is-switching .filter { animation: filter-enter .35s ease both; }
+		.app-shell.is-switching .filter:nth-child(2) { animation-delay: .04s; }
+		.app-shell.is-switching .filter:nth-child(3) { animation-delay: .08s; }
+		.app-shell.is-switching .filter:nth-child(4) { animation-delay: .12s; }
+		.app-shell.is-switching .filter:nth-child(5) { animation-delay: .16s; }
+		.app-shell.is-switching .filter:nth-child(6) { animation-delay: .2s; }
+		.app-shell.is-switching .filter:nth-child(7) { animation-delay: .24s; }
+		.app-shell.is-switching .asset-card, .app-shell.is-switching .empty-state { animation: section-enter .42s ease both; }
+		.app-shell.is-switching .asset-card:nth-child(2) { animation-delay: .06s; }
+		.app-shell.is-switching .asset-card:nth-child(3) { animation-delay: .12s; }
+		.app-shell.is-switching .asset-card:nth-child(4) { animation-delay: .18s; }
+		.app-shell.is-switching .asset-card:nth-child(5) { animation-delay: .24s; }
+		.app-shell.is-switching .asset-card:nth-child(6) { animation-delay: .3s; }
+		.sidebar { position: sticky; top: 0; display: flex; flex-direction: column; height: 100vh; padding: 26px 18px; border-right: 1px solid var(--line); background: rgba(8, 12, 21, .88); }
+		.brand { display: flex; align-items: center; gap: 11px; padding: 0 12px 34px; }
+		.brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--cyan); border-radius: 10px; color: var(--cyan); background: rgba(110, 231, 249, .08); font-size: 17px; font-weight: 700; }
+		.brand-name { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+		.brand-name span { display: block; margin-top: 3px; color: var(--muted); font-family: "DM Mono", monospace; font-size: 9px; font-weight: 400; letter-spacing: .08em; }
+		.side-label { margin: 0 12px 10px; color: #53617a; font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+		.nav { display: grid; gap: 4px; margin-bottom: 28px; }
+		.nav button { display: flex; align-items: center; gap: 12px; width: 100%; padding: 11px 12px; border: 1px solid transparent; border-radius: 7px; color: var(--muted); background: transparent; text-align: left; font-size: 13px; }
+		.nav button:hover, .nav button.active { border-color: rgba(110, 231, 249, .15); color: var(--text); background: rgba(110, 231, 249, .07); }
+		.nav-icon { width: 18px; color: var(--cyan); font-family: "DM Mono", monospace; font-size: 12px; text-align: center; }
+		.sidebar-note { margin-top: auto; padding: 14px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); background: rgba(255, 255, 255, .025); font-size: 11px; line-height: 1.55; }
+		.sidebar-note strong { display: block; margin-bottom: 5px; color: var(--text); font-size: 12px; }
+
+		.content { min-width: 0; overflow: hidden; }
+		.topbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 19px 4vw; border-bottom: 1px solid var(--line); background: rgba(7, 11, 20, .72); backdrop-filter: blur(16px); }
+		.breadcrumb { color: var(--muted); font-family: "DM Mono", monospace; font-size: 11px; }
+		.breadcrumb b { color: var(--cyan); font-weight: 400; }
+		.top-actions { display: flex; align-items: center; gap: 13px; }
+		.search { display: flex; align-items: center; width: min(300px, 26vw); height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 6px; color: var(--text); background: rgba(255, 255, 255, .035); outline: none; font-size: 12px; }
+		.search:focus { border-color: rgba(110, 231, 249, .55); }
+		.role { padding: 8px 10px; border: 1px solid rgba(131, 230, 172, .25); border-radius: 5px; color: var(--green); background: rgba(131, 230, 172, .06); font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: .08em; }
+		.admin-button { display: none; height: 36px; padding: 0 13px; border: 1px solid rgba(246, 120, 199, .35); border-radius: 6px; color: var(--pink); background: rgba(246, 120, 199, .07); font-size: 11px; font-weight: 600; }
+		.admin-mode .admin-button { display: block; }
+		.auth-button { height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); background: transparent; font-size: 11px; font-weight: 600; }
+		.auth-button:hover { border-color: rgba(110, 231, 249, .45); color: var(--cyan); }
+		.auth-button.register { border-color: rgba(110, 231, 249, .28); color: var(--cyan); background: rgba(110, 231, 249, .07); }
+		.profile-button, .signout-button { display: none; height: 36px; padding: 0 12px; border: 1px solid rgba(131, 230, 172, .28); border-radius: 6px; color: var(--green); background: rgba(131, 230, 172, .07); font-size: 11px; font-weight: 600; }
+		.signout-button { border-color: var(--line); color: var(--muted); background: transparent; }
+		.signed-in .auth-button { display: none; }
+		.signed-in .profile-button, .signed-in .signout-button { display: block; }
+
+		.main { width: min(1400px, 100%); margin: 0 auto; padding: 34px 4vw 80px; }
+		.hero { position: relative; min-height: 290px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .8fr); align-items: center; overflow: hidden; margin-bottom: 33px; padding: 36px 42px; border: 1px solid color-mix(in srgb, var(--cyan) 20%, var(--line)); border-radius: 14px; background: linear-gradient(115deg, color-mix(in srgb, var(--blue) 18%, #14213d), rgba(11, 19, 34, .77)); transition: border-color .3s, background .3s; }
+		.hero-copy { position: relative; z-index: 1; max-width: 580px; }
+		.eyebrow { margin-bottom: 15px; color: var(--cyan); font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
+		h1 { max-width: 600px; margin: 0; font-size: clamp(33px, 4.7vw, 65px); font-weight: 600; line-height: .98; letter-spacing: -.055em; }
+		h1 em { color: var(--pink); font-style: normal; }
+		.hero-copy p { max-width: 500px; margin: 18px 0 0; color: #a8b4cc; font-size: 14px; line-height: 1.65; }
+		.hero-stats { display: flex; gap: 26px; margin-top: 25px; }
+		.stat strong { display: block; color: var(--text); font-family: "DM Mono", monospace; font-size: 19px; font-weight: 500; }
+		.stat span { color: var(--muted); font-size: 10px; }
+		#heroCanvas { position: absolute; inset: 0 0 0 auto; width: 52%; height: 100%; opacity: .9; }
+		.hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(20, 33, 61, .98) 0%, rgba(20, 33, 61, .56) 47%, transparent 78%); }
+
+		.section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+		.section-head h2 { margin: 0; font-size: 21px; font-weight: 600; letter-spacing: -.03em; }
+		.section-head p { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+		.filter-row { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px; }
+		.filter { flex: 0 0 auto; padding: 8px 11px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); background: transparent; font-size: 11px; }
+		.filter:hover, .filter.active { border-color: rgba(110, 231, 249, .4); color: var(--cyan); background: rgba(110, 231, 249, .07); }
+		.asset-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+		.asset-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: linear-gradient(145deg, rgba(17, 26, 42, .98), rgba(11, 17, 29, .96)); transition: border-color .2s, transform .2s; }
+		.asset-card:hover { border-color: color-mix(in srgb, var(--cyan) 48%, transparent); transform: translateY(-3px); }
+		.asset-art { position: relative; aspect-ratio: 16 / 9; overflow: hidden; display: grid; place-items: center; background: #17233a; }
+		.asset-art::before { content: ""; position: absolute; width: 150px; height: 150px; border-radius: 50%; background: var(--art-color, #6ee7f9); opacity: .22; filter: blur(28px); }
+		.asset-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255, 255, 255, .1), transparent 45%, rgba(0, 0, 0, .3)); }
+		.asset-art.pink { --art-color: #f678c7; background: #301a3a; }
+		.asset-art.blue { --art-color: #7c9cff; background: #172548; }
+		.asset-art.green { --art-color: #83e6ac; background: #143035; }
+		.asset-art.orange { --art-color: #ffb47a; background: #35222a; }
+		.asset-art.violet { --art-color: #b9a2ff; background: #261b42; }
+		.preview-glyph { position: relative; z-index: 1; display: grid; place-items: center; width: 53px; height: 53px; border: 1px solid rgba(255, 255, 255, .55); border-radius: 50%; color: #fff; background: rgba(8, 11, 20, .28); font-size: 19px; backdrop-filter: blur(7px); }
+		.asset-type { position: absolute; top: 10px; left: 10px; z-index: 1; padding: 5px 7px; border-radius: 4px; color: #dbe7ff; background: rgba(7, 11, 20, .6); font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: .08em; }
+		.asset-size { position: absolute; right: 10px; bottom: 10px; z-index: 1; color: rgba(255,255,255,.75); font-family: "DM Mono", monospace; font-size: 9px; }
+		.asset-info { padding: 14px; }
+		.asset-info h3 { overflow: hidden; margin: 0; font-size: 14px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+		.asset-meta { display: flex; justify-content: space-between; gap: 10px; margin-top: 7px; color: var(--muted); font-family: "DM Mono", monospace; font-size: 10px; }
+		.asset-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 13px; }
+		.card-button { height: 34px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); background: rgba(255, 255, 255, .025); font-size: 11px; font-weight: 600; }
+		.card-button:hover { border-color: var(--cyan); color: var(--cyan); }
+		.card-button.download { border-color: rgba(110, 231, 249, .22); color: var(--cyan); background: rgba(110, 231, 249, .06); }
+		.empty-state { display: none; grid-column: 1 / -1; padding: 50px; border: 1px dashed var(--line); border-radius: 9px; color: var(--muted); text-align: center; }
+		.site-footer { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 30px; margin-top: 58px; padding: 28px 0 8px; border-top: 1px solid var(--line); color: var(--muted); }
+		.footer-brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+		.footer-brand .brand-mark { width: 29px; height: 29px; border-radius: 8px; font-size: 14px; }
+		.footer-copy { max-width: 300px; margin: 12px 0 0; font-size: 11px; line-height: 1.6; }
+		.footer-column h3 { margin: 0 0 12px; color: var(--text); font-family: "DM Mono", monospace; font-size: 10px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; }
+		.footer-links { display: grid; gap: 8px; }
+		.footer-links a { width: fit-content; font-size: 11px; }
+		.footer-links a:hover { color: var(--cyan); }
+		.footer-bottom { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 15px; padding-top: 22px; color: #53617a; font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
+		.developer-credit { display: inline-block; animation: developer-color-loop 5s linear infinite; transition: transform .2s ease; }
+		.developer-credit:hover { transform: scale(1.2); }
+		@keyframes developer-color-loop { 0%, 100% { color: var(--cyan); } 33% { color: var(--pink); } 66% { color: var(--green); } }
+
+		.modal-backdrop { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 20px; background: rgba(2, 4, 9, .76); opacity: 0; pointer-events: none; transition: opacity .2s; }
+		.modal-backdrop.open { opacity: 1; pointer-events: auto; }
+		.modal { width: min(100%, 520px); max-height: min(720px, 92vh); overflow: auto; padding: 25px; border: 1px solid rgba(110, 231, 249, .2); border-radius: 10px; background: #0e1727; box-shadow: 0 25px 80px rgba(0, 0, 0, .4); transform: translateY(12px); transition: transform .2s; }
+		.modal-backdrop.open .modal { transform: translateY(0); }
+		.modal-head { display: flex; align-items: start; justify-content: space-between; gap: 15px; margin-bottom: 20px; }
+		.modal h2 { margin: 0; font-size: 20px; }
+		.modal-close { border: 0; color: var(--muted); background: transparent; font-size: 22px; line-height: 1; }
+		.modal-close:hover { color: var(--text); }
+		.form-field { display: grid; gap: 7px; margin-bottom: 15px; }
+		.form-field label { color: var(--muted); font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: .09em; text-transform: uppercase; }
+		.form-field input, .form-field select { width: 100%; height: 42px; padding: 0 12px; border: 1px solid var(--line); border-radius: 5px; outline: none; color: var(--text); background: rgba(255, 255, 255, .045); font-size: 12px; }
+		.form-field input:focus, .form-field select:focus { border-color: var(--cyan); }
+		.form-field select option { color: var(--text); background: var(--panel); }
+		.modal-footer { display: flex; align-items: center; justify-content: end; gap: 9px; margin-top: 21px; }
+		.modal-button { height: 39px; padding: 0 14px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); background: transparent; font-size: 11px; font-weight: 600; }
+		.modal-button.primary { border-color: rgba(110, 231, 249, .3); color: var(--bg); background: var(--cyan); }
+		.modal-button.primary:hover { background: #b8f5ff; }
+		.admin-message { min-height: 16px; margin-top: 14px; color: var(--pink); font-size: 11px; }
+		.social-auth-divider { display: flex; align-items: center; gap: 10px; margin: 20px 0 13px; color: var(--muted); font-family: "DM Mono", monospace; font-size: 9px; text-transform: uppercase; }
+		.social-auth-divider::before, .social-auth-divider::after { content: ""; height: 1px; flex: 1; background: var(--line); }
+		.social-auth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+		.social-auth { display: inline-flex; align-items: center; justify-content: center; gap: 7px; height: 39px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); background: rgba(255, 255, 255, .025); font-size: 10px; font-weight: 600; }
+		.social-auth img { width: 15px; height: 15px; object-fit: contain; }
+		.social-auth:hover { border-color: rgba(110, 231, 249, .45); color: var(--cyan); background: rgba(110, 231, 249, .06); }
+		.profile-summary { display: flex; align-items: center; gap: 13px; padding: 15px; border: 1px solid var(--line); border-radius: 7px; background: rgba(255, 255, 255, .035); }
+		.profile-avatar { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: var(--bg); background: linear-gradient(135deg, var(--cyan), var(--blue)); font-size: 17px; font-weight: 700; }
+		.profile-summary strong, .profile-summary span { display: block; }
+		.profile-summary strong { font-size: 14px; }
+		.profile-summary span { margin-top: 4px; color: var(--muted); font-family: "DM Mono", monospace; font-size: 10px; }
+		.profile-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+		.profile-stats div { padding: 12px 8px; border: 1px solid var(--line); border-radius: 6px; text-align: center; }
+		.profile-stats strong, .profile-stats span { display: block; }
+		.profile-stats strong { color: var(--cyan); font-family: "DM Mono", monospace; font-size: 14px; font-weight: 500; }
+		.profile-stats span { margin-top: 5px; color: var(--muted); font-size: 9px; }
+		.profile-links { display: grid; gap: 7px; margin-top: 15px; }
+		.profile-links button { padding: 11px 12px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); background: transparent; text-align: left; font-size: 11px; }
+		.profile-links button:hover { border-color: rgba(110, 231, 249, .35); color: var(--cyan); }
+		.drop-zone { display: grid; place-items: center; min-height: 105px; margin-top: 5px; border: 1px dashed rgba(110, 231, 249, .35); border-radius: 7px; color: var(--muted); background: rgba(110, 231, 249, .035); font-size: 11px; text-align: center; }
+		.drop-zone strong { display: block; margin-bottom: 5px; color: var(--cyan); font-size: 12px; }
+		.drop-zone input { display: none; }
+		.preview-modal { width: min(100%, 700px); }
+		.preview-stage { position: relative; display: grid; place-items: center; min-height: 270px; overflow: hidden; border-radius: 7px; background: #111e35; }
+		.preview-stage::before { content: ""; position: absolute; width: 230px; height: 230px; border-radius: 50%; background: var(--preview-color, var(--cyan)); opacity: .22; filter: blur(35px); }
+		.preview-stage .preview-glyph { width: 70px; height: 70px; font-size: 25px; }
+		.preview-wave { position: absolute; right: 12%; bottom: 25px; left: 12%; display: flex; align-items: center; justify-content: center; gap: 3px; height: 30px; opacity: .7; }
+		.preview-wave i { width: 3px; height: var(--h); border-radius: 3px; background: var(--cyan); }
+
+		@media (max-width: 1000px) {
+			.app-shell { grid-template-columns: 78px minmax(0, 1fr); }
+			.sidebar { padding: 20px 10px; }
+			.brand { justify-content: center; padding: 0 0 30px; }
+			.brand-name, .side-label, .nav button span, .sidebar-note { display: none; }
+			.nav button { justify-content: center; padding: 12px 5px; }
+			.hero { grid-template-columns: 1fr; }
+			#heroCanvas { width: 68%; opacity: .47; }
+			.hero-copy { max-width: 650px; }
+		}
+		@media (max-width: 760px) {
+			.topbar { align-items: flex-start; padding: 16px 20px; }
+			.breadcrumb { display: none; }
+			.top-actions { width: 100%; justify-content: flex-end; flex-wrap: wrap; }
+			.search { width: min(240px, 50vw); }
+			.main { padding: 24px 20px 60px; }
+			.hero { min-height: 380px; padding: 28px 23px; }
+			#heroCanvas { width: 100%; opacity: .35; }
+			.hero::after { background: linear-gradient(90deg, rgba(20, 33, 61, .95), rgba(20, 33, 61, .35)); }
+			.asset-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.site-footer { grid-template-columns: 1fr; }
+			.footer-bottom { grid-template-columns: 1fr; display: grid; }
+			.asset-info { padding: 11px; }
+			.asset-info h3 { font-size: 12px; }
+			.asset-meta { font-size: 9px; }
+			.role { display: none; }
+		}
+		@media (max-width: 560px) {
+			.app-shell { grid-template-columns: 1fr; }
+			.sidebar {
+				position: sticky;
+				top: 0;
+				z-index: 4;
+				height: auto;
+				padding: 10px 12px 12px;
+				border-right: 0;
+				border-bottom: 1px solid var(--line);
+				background: rgba(8, 12, 21, .96);
+			}
+			.brand, .sidebar-note, .side-label { display: none; }
+			.nav {
+				display: flex;
+				overflow-x: auto;
+				flex-wrap: nowrap;
+				padding-bottom: 2px;
+				margin: 0;
+				-webkit-overflow-scrolling: touch;
+			}
+			.nav::-webkit-scrollbar { display: none; }
+			.nav button {
+				flex: 0 0 auto;
+				min-width: 120px;
+				justify-content: center;
+				height: 46px;
+				padding: 0 12px;
+			}
+			.nav button span { display: inline; }
+			.content { padding-bottom: 0; }
+			.topbar { flex-direction: column; align-items: stretch; gap: 12px; }
+			.top-actions { justify-content: space-between; }
+			.search { width: 100%; min-width: 0; }
+			.admin-button { flex: 1 1 auto; }
+			.main { padding: 18px 16px 48px; }
+			.hero { margin-bottom: 25px; min-height: 320px; padding: 22px 18px; }
+			.hero-stats { flex-wrap: wrap; gap: 12px 18px; }
+			.asset-grid { grid-template-columns: 1fr; }
+			.asset-art { aspect-ratio: 16 / 8; }
+			.modal { padding: 18px; }
+			.social-auth-grid { grid-template-columns: 1fr; }
+			.profile-stats { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+<body>
+	<div class="app-shell" id="appShell">
+		<aside class="sidebar">
+			<div class="brand"><div class="brand-mark">D</div><div class="brand-name">Dragon Unit<span>edit asset library</span></div></div>
+			<p class="side-label">Browse vault</p>
+			<nav class="nav" aria-label="Asset categories">
+				<button class="active" data-filter="all"><b class="nav-icon">⌂</b><span>All assets</span></button>
+				<button data-filter="anime-clips"><b class="nav-icon">◈</b><span>Anime Clips</span></button>
+				<button data-filter="sfx"><b class="nav-icon">∿</b><span>SFX</span></button>
+				<button data-filter="presets"><b class="nav-icon">✦</b><span>Presets</span></button>
+				<button data-filter="projects"><b class="nav-icon">▣</b><span>Project Files</span></button>
+				<button data-filter="lili-remake"><b class="nav-icon">◇</b><span>Lili_2.0 Remake Clips</span></button>
+				<button data-filter="nevonae-remake"><b class="nav-icon">◈</b><span>Nevonae Remake Clips</span></button>
+				<button data-filter="saved"><b class="nav-icon">♡</b><span>Saved assets</span></button>
+				<button data-open-upload><b class="nav-icon">↑</b><span>Upload assets</span></button>
+			</nav>
+			<div class="sidebar-note"><strong>24/7 public vault</strong>Everyone can browse, preview, and download assets without an account. Uploads are reserved for verified admins and owners.</div>
+		</aside>
+
+		<div class="content">
+			<header class="topbar">
+				<div class="breadcrumb">VAULT / <b>DISCOVER</b></div>
+				<div class="top-actions">
+						<input class="search" id="search" type="search" placeholder="Search clips, presets, SFX..." aria-label="Search assets" />
+					<span class="role">24/7 PUBLIC ACCESS</span>
+					<button class="auth-button" type="button" data-open-auth="signinModal">Sign in</button>
+					<button class="auth-button register" type="button" data-open-auth="registerModal">Register</button>
+					<button class="profile-button" type="button" data-open-profile>Profile</button>
+					<button class="signout-button" type="button" data-signout>Sign out</button>
+					<button class="admin-button" type="button" data-admin-exit>ADMIN MODE</button>
+				</div>
+			</header>
+
+			<main class="main">
+				<section class="hero">
+					<div class="hero-copy">
+						<div class="eyebrow">Dragon Unit / 001</div>
+						<h1>Build edits with <em>more fire.</em></h1>
+							<p>A public library of anime clips, SFX, presets, project files, and remake clips made for the next cut.</p>
+						<div class="hero-stats"><div class="stat"><strong id="assetCount">06</strong><span>ASSETS LIVE</span></div><div class="stat"><strong>4K</strong><span>MAX RESOLUTION</span></div><div class="stat"><strong>24/7</strong><span>OPEN ACCESS</span></div></div>
+					</div>
+					<canvas id="heroCanvas" aria-label="Animated 3D Dragon Unit visual"></canvas>
+				</section>
+
+				<section class="section-head"><div><h2>Latest drops</h2><p>Fresh assets for your timeline.</p></div><div class="filter-row" id="filters"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="anime-clips">Anime Clips</button><button class="filter" data-filter="sfx">SFX</button><button class="filter" data-filter="presets">Presets</button><button class="filter" data-filter="projects">Project Files</button><button class="filter" data-filter="lili-remake">Lili_2.0</button><button class="filter" data-filter="nevonae-remake">Nevonae</button><button class="filter" data-filter="saved">Saved</button></div></section>
+				<section class="asset-grid" id="assetGrid" aria-live="polite"></section>
+						<div class="empty-state" id="emptyState">The public vault is open 24/7. Verified admins and owners can upload the first asset.</div>
+				<footer class="site-footer">
+					<div>
+						<div class="footer-brand"><span class="brand-mark">D</span><span>Dragon Unit</span></div>
+						<p class="footer-copy">A public home for anime clips, SFX, presets, project files, and remake assets for the next edit.</p>
+					</div>
+					<div class="footer-column"><h3>Explore</h3><nav class="footer-links"><a href="#anime-clips">Anime Clips</a><a href="#sfx">SFX</a><a href="#presets">Presets</a></nav></div>
+					<div class="footer-column"><h3>Community</h3><nav class="footer-links"><a href="https://www.youtube.com/@DragonUnitDragon" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://discord.gg/HKmuN37Z5" target="_blank" rel="noopener noreferrer">Discord</a><a href="#register">Create an account</a></nav></div>
+					<div class="footer-bottom"><span>© 2026 Dragon Edit Assets</span><a class="developer-credit" href="https://youtube.com/@nevonae?si=N-3bPkeOSSACEkNo" target="_blank" rel="noopener noreferrer">Web Developer Nevonae</a><span>Public access / admin uploads protected</span></div>
+				</footer>
+			</main>
+		</div>
+	</div>
+
+	<div class="modal-backdrop" id="signinModal">
+		<section class="modal" role="dialog" aria-modal="true" aria-labelledby="signinTitle">
+			<div class="modal-head"><div><div class="eyebrow">Member access</div><h2 id="signinTitle">Sign in</h2></div><button class="modal-close" type="button" data-close="signinModal" aria-label="Close sign in">×</button></div>
+			<form id="signinForm">
+				<div class="form-field"><label for="signinEmail">Email address</label><input id="signinEmail" type="email" placeholder="you@example.com" required /></div>
+				<div class="form-field"><label for="signinPassword">Password</label><input id="signinPassword" type="password" placeholder="Enter your password" minlength="6" required /></div>
+				<div class="social-auth-divider"><span>or continue with</span></div>
+				<div class="social-auth-grid"><button class="social-auth" type="button" data-provider="Google"><img src="https://cdn.simpleicons.org/google" alt="" />Google</button><button class="social-auth" type="button" data-provider="Gmail"><img src="https://cdn.simpleicons.org/gmail" alt="" />Gmail</button><button class="social-auth" type="button" data-provider="Discord"><img src="https://cdn.simpleicons.org/discord" alt="" />Discord</button></div>
+				<div class="modal-footer"><button class="modal-button" type="button" data-close="signinModal">Cancel</button><button class="modal-button primary" type="submit">Sign in</button></div>
+				<div class="admin-message" id="signinMessage"></div>
+			</form>
+		</section>
+	</div>
+
+	<div class="modal-backdrop" id="registerModal">
+		<section class="modal" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
+			<div class="modal-head"><div><div class="eyebrow">Join the vault</div><h2 id="registerTitle">Register</h2></div><button class="modal-close" type="button" data-close="registerModal" aria-label="Close registration">×</button></div>
+			<form id="registerForm">
+				<div class="form-field"><label for="registerName">Display name</label><input id="registerName" type="text" placeholder="Your creator name" required /></div>
+				<div class="form-field"><label for="registerEmail">Email address</label><input id="registerEmail" type="email" placeholder="you@example.com" required /></div>
+				<div class="form-field"><label for="registerPassword">Password</label><input id="registerPassword" type="password" placeholder="At least 6 characters" minlength="6" required /></div>
+				<div class="social-auth-divider"><span>or register with</span></div>
+				<div class="social-auth-grid"><button class="social-auth" type="button" data-provider="Google"><img src="https://cdn.simpleicons.org/google" alt="" />Google</button><button class="social-auth" type="button" data-provider="Gmail"><img src="https://cdn.simpleicons.org/gmail" alt="" />Gmail</button><button class="social-auth" type="button" data-provider="Discord"><img src="https://cdn.simpleicons.org/discord" alt="" />Discord</button></div>
+				<div class="modal-footer"><button class="modal-button" type="button" data-close="registerModal">Cancel</button><button class="modal-button primary" type="submit">Create account</button></div>
+				<div class="admin-message" id="registerMessage"></div>
+			</form>
+		</section>
+	</div>
+
+	<div class="modal-backdrop" id="profileModal">
+		<section class="modal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+			<div class="modal-head"><div><div class="eyebrow">Your vault profile</div><h2 id="profileTitle">Profile</h2></div><button class="modal-close" type="button" data-close="profileModal" aria-label="Close profile">×</button></div>
+			<div class="profile-summary"><div class="profile-avatar" id="profileAvatar">D</div><div><strong id="profileName">Dragon creator</strong><span id="profileEmail">creator@dragonassets.com</span></div></div>
+			<div class="profile-stats"><div><strong id="savedCount">00</strong><span>Saved assets</span></div><div><strong id="downloadCount">00</strong><span>Downloads</span></div><div><strong>Public</strong><span>Account type</span></div></div>
+			<div class="profile-links"><button type="button" data-profile-action="saved">♡ Saved assets</button><button type="button" data-profile-action="settings">⚙ Account settings</button></div>
+			<div class="modal-footer"><button class="modal-button" type="button" data-close="profileModal">Close</button><button class="modal-button primary" type="button" data-signout>Sign out</button></div>
+		</section>
+	</div>
+
+	<div class="modal-backdrop" id="previewModal">
+		<section class="modal preview-modal" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
+			<div class="modal-head"><div><div class="eyebrow">Asset preview</div><h2 id="previewTitle">Preview</h2></div><button class="modal-close" type="button" data-close="previewModal" aria-label="Close preview">×</button></div>
+			<div class="preview-stage" id="previewStage"><span class="preview-glyph">▶</span><div class="preview-wave" aria-hidden="true"></div></div>
+			<div class="asset-meta" id="previewMeta"></div>
+		</section>
+	</div>
+
+	<div class="modal-backdrop" id="uploadModal">
+		<section class="modal" role="dialog" aria-modal="true" aria-labelledby="uploadTitle">
+			<div class="modal-head"><div><div class="eyebrow">Admin workspace</div><h2 id="uploadTitle">Upload new asset</h2></div><button class="modal-close" type="button" data-close="uploadModal" aria-label="Close upload">×</button></div>
+			<form id="uploadForm">
+				<div class="form-field"><label for="assetName">Asset name</label><input id="assetName" type="text" placeholder="e.g. Dragon impact burst" required /></div>
+						<div class="form-field"><label for="assetType">Asset category</label><select id="assetType"><option value="anime-clips">Anime Clips</option><option value="sfx">SFX</option><option value="presets">Presets</option><option value="projects">Project Files</option><option value="lili-remake">Lili_2.0 Remake Clips</option><option value="nevonae-remake">Nevonae Remake Clips</option></select></div>
+				<label class="drop-zone" for="assetFile"><span><strong>Choose a file to publish</strong>MP4, MOV, WAV, PNG, PSD, AEP and more</span><input id="assetFile" type="file" /></label>
+				<div class="modal-footer"><button class="modal-button" type="button" data-close="uploadModal">Cancel</button><button class="modal-button primary" type="submit">Publish asset</button></div>
+			</form>
+		</section>
+	</div>
+
+	<div class="modal-backdrop" id="adminModal">
+		<section class="modal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+			<div class="modal-head"><div><div class="eyebrow">Restricted route</div><h2 id="adminTitle">Admin access</h2></div><button class="modal-close" type="button" data-close="adminModal" aria-label="Close admin login">×</button></div>
+			<p style="color: var(--muted); font-size: 12px; line-height: 1.6;">Only verified admins and owners can publish assets to the public vault.</p>
+			<form id="adminForm"><div class="form-field"><label for="adminEmail">Admin Gmail</label><input id="adminEmail" type="email" placeholder="admin@gmail.com" required /></div><div class="form-field"><label for="adminKey">Personal admin key</label><input id="adminKey" type="password" placeholder="Enter your admin key" required /></div><div class="modal-footer"><button class="modal-button" type="button" data-close="adminModal">Cancel</button><button class="modal-button primary" type="submit">Unlock uploads</button></div><div class="admin-message" id="adminMessage"></div></form>
+		</section>
+	</div>
+
+	<script src="https://accounts.google.com/gsi/client" async defer></script>
+	<script>
+		window.GOOGLE_CLIENT_ID = '__GOOGLE_CLIENT_ID__';
+		const assets = [];
+		let activeFilter = 'all';
+		let adminMode = false;
+		const SAVED_KEY = 'dragonVaultSavedAssets';
+
+		const typeNames = { 'anime-clips': 'Anime Clips', sfx: 'SFX', presets: 'Presets', projects: 'Project Files', 'lili-remake': 'Lili_2.0 Remake Clips', 'nevonae-remake': 'Nevonae Remake Clips' };
+		const assetGrid = document.querySelector('#assetGrid');
+		const emptyState = document.querySelector('#emptyState');
+		const search = document.querySelector('#search');
+		const appShell = document.querySelector('#appShell');
+		let authToken = localStorage.getItem('dragonVaultToken') || '';
+		const assetColors = ['pink', 'blue', 'green', 'orange', 'violet'];
+
+		async function apiRequest(path, options = {}) {
+			const headers = new Headers(options.headers || {});
+			if (authToken) headers.set('Authorization', `Bearer ${authToken}`);
+			if (options.body && !(options.body instanceof FormData)) headers.set('Content-Type', 'application/json');
+			const response = await fetch(path, { ...options, headers });
+			const payload = await response.json().catch(() => ({}));
+			if (!response.ok) throw new Error(payload.error || 'Request failed.');
+			return payload;
+		}
+
+		function saveSession(session) {
+			authToken = session.token;
+			localStorage.setItem('dragonVaultToken', authToken);
+		}
+
+		function mapAsset(asset, index) {
+			return { ...asset, color: asset.color || assetColors[index % assetColors.length] };
+		}
+
+		function signInUser(name, email) {
+			appShell.classList.add('signed-in');
+			document.querySelector('#profileName').textContent = name;
+			document.querySelector('#profileEmail').textContent = email;
+			document.querySelector('#profileAvatar').textContent = name.charAt(0).toUpperCase();
+			document.querySelectorAll('.modal-backdrop.open').forEach((modal) => modal.classList.remove('open'));
+			openModal('profileModal');
+		}
+
+		document.querySelector('[data-open-profile]').addEventListener('click', () => openModal('profileModal'));
+		document.querySelectorAll('[data-signout]').forEach((button) => button.addEventListener('click', () => {
+			authToken = '';
+			localStorage.removeItem('dragonVaultToken');
+			appShell.classList.remove('signed-in');
+			closeModal('profileModal');
+		}));
+
+		document.querySelectorAll('[data-open-auth]').forEach((button) => button.addEventListener('click', () => openModal(button.dataset.openAuth)));
+		document.querySelector('#signinForm').addEventListener('submit', (event) => {
+			event.preventDefault();
+			const form = event.currentTarget;
+			const message = document.querySelector('#signinMessage');
+			if (!form.checkValidity()) { message.textContent = 'Enter a valid email and password.'; form.reportValidity(); return; }
+			apiRequest('/api/auth/login', { method: 'POST', body: JSON.stringify({ email: document.querySelector('#signinEmail').value, password: document.querySelector('#signinPassword').value }) })
+				.then((session) => { saveSession(session); message.textContent = 'Signed in successfully. Welcome to the vault.'; signInUser(session.user.name, session.user.email); })
+				.catch((error) => { message.textContent = error.message; });
+		});
+		document.querySelector('#registerForm').addEventListener('submit', (event) => {
+			event.preventDefault();
+			const form = event.currentTarget;
+			const message = document.querySelector('#registerMessage');
+			if (!form.checkValidity()) { message.textContent = 'Complete all fields to create your account.'; form.reportValidity(); return; }
+			apiRequest('/api/auth/register', { method: 'POST', body: JSON.stringify({ name: document.querySelector('#registerName').value, email: document.querySelector('#registerEmail').value, password: document.querySelector('#registerPassword').value }) })
+				.then((session) => { saveSession(session); message.textContent = 'Account created. Welcome to Dragon Unit.'; signInUser(session.user.name, session.user.email); })
+				.catch((error) => { message.textContent = error.message; });
+		});
+		const googleButton = document.querySelector('[data-provider="Google"]');
+		if (window.GOOGLE_CLIENT_ID && window.GOOGLE_CLIENT_ID !== '__GOOGLE_CLIENT_ID__') {
+			window.google?.accounts?.id?.initialize({
+				client_id: window.GOOGLE_CLIENT_ID,
+				callback: async (response) => {
+					try {
+						const session = await apiRequest('/api/auth/google', {
+							method: 'POST',
+							body: JSON.stringify({ token: response.credential })
+						});
+						saveSession(session);
+						signInUser(session.user.name, session.user.email);
+					} catch (error) {
+						const message = document.querySelector('#signinMessage') || document.querySelector('#registerMessage');
+						if (message) message.textContent = error.message;
+					}
+				}
+			});
+			if (googleButton) {
+				googleButton.addEventListener('click', () => {
+					window.google?.accounts?.id?.prompt();
+				});
+			}
+		} else if (googleButton) {
+			googleButton.addEventListener('click', () => {
+				const message = document.querySelector('#signinMessage') || document.querySelector('#registerMessage');
+				if (message) message.textContent = 'Google sign-in is not configured yet. Add your Google OAuth client ID in the environment.';
+			});
+		}
+
+		document.querySelectorAll('[data-provider]').forEach((button) => {
+			if (button.dataset.provider === 'Google') return;
+			button.addEventListener('click', () => {
+				const provider = button.dataset.provider;
+				signInUser(`${provider} member`, `${provider.toLowerCase()}@connected.account`);
+			});
+		});
+
+		function getSavedAssetIds() {
+			try {
+				const saved = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+				return Array.isArray(saved) ? saved : [];
+			} catch (_error) {
+				return [];
+			}
+		}
+
+		function renderAssets() {
+			const term = search.value.toLowerCase().trim();
+			const savedIds = getSavedAssetIds();
+			const visible = assets.filter((asset) => {
+				const matchesSaved = activeFilter === 'saved' ? savedIds.includes(asset.id) : true;
+				const matchesType = activeFilter === 'all' || activeFilter === 'saved' ? true : asset.type === activeFilter;
+				return matchesSaved && matchesType && `${asset.name} ${asset.type}`.toLowerCase().includes(term);
+			});
+			assetGrid.innerHTML = visible.map((asset) => `
+				<article class="asset-card" data-asset-id="${asset.id}">
+					<div class="asset-art ${asset.color}"><span class="asset-type">${asset.label}</span><span class="preview-glyph">${asset.type === 'sfx' ? '♪' : '▶'}</span><span class="asset-size">${asset.size}</span></div>
+					<div class="asset-info"><h3>${asset.name}</h3><div class="asset-meta"><span>${typeNames[asset.type]}</span><span>${asset.meta}</span></div><div class="asset-actions"><button class="card-button" data-preview="${asset.id}">Preview</button><button class="card-button download" data-download="${asset.id}">Download</button></div></div>
+				</article>`).join('');
+			emptyState.textContent = activeFilter === 'saved' ? 'No saved assets yet. Save a few from the vault to build your personal library.' : 'The public vault is open 24/7. Verified admins and owners can upload the first asset.';
+			emptyState.style.display = visible.length ? 'none' : 'block';
+			document.querySelector('#assetCount').textContent = String(assets.length).padStart(2, '0');
+		}
+
+		async function loadAssets() {
+			try {
+				const response = await apiRequest('/api/assets');
+				assets.splice(0, assets.length, ...response.assets.map(mapAsset));
+				renderAssets();
+			} catch (error) {
+				emptyState.textContent = 'The public vault is temporarily offline. Please try again soon.';
+				emptyState.style.display = 'block';
+			}
+		}
+
+		function setSectionTheme(section) {
+			const appShell = document.querySelector('#appShell');
+			if (section === 'all' || section === 'saved') appShell.removeAttribute('data-section');
+			else appShell.dataset.section = section;
+			setSectionModel(section);
+		}
+
+		function openModal(id) { document.querySelector(`#${id}`).classList.add('open'); }
+		function closeModal(id) { document.querySelector(`#${id}`).classList.remove('open'); }
+
+		document.querySelectorAll('[data-filter]').forEach((button) => button.addEventListener('click', () => {
+			activeFilter = button.dataset.filter;
+			setSectionTheme(activeFilter);
+			document.querySelectorAll('[data-filter]').forEach((item) => item.classList.toggle('active', item.dataset.filter === activeFilter));
+			appShell.classList.remove('is-switching');
+			void appShell.offsetWidth;
+			appShell.classList.add('is-switching');
+			window.setTimeout(() => appShell.classList.remove('is-switching'), 850);
+			renderAssets();
+		}));
+		search.addEventListener('input', renderAssets);
+		document.querySelector('[data-open-upload]').addEventListener('click', () => openModal(adminMode ? 'uploadModal' : 'adminModal'));
+		document.querySelector('[data-admin-exit]').addEventListener('click', () => { adminMode = false; document.querySelector('#appShell').classList.remove('admin-mode'); });
+		document.querySelectorAll('[data-close]').forEach((button) => button.addEventListener('click', () => closeModal(button.dataset.close)));
+		document.querySelectorAll('.modal-backdrop').forEach((backdrop) => backdrop.addEventListener('click', (event) => { if (event.target === backdrop) backdrop.classList.remove('open'); }));
+		document.addEventListener('keydown', (event) => { if (event.key === 'Escape') document.querySelectorAll('.modal-backdrop.open').forEach((modal) => modal.classList.remove('open')); });
+
+		assetGrid.addEventListener('click', (event) => {
+			const previewButton = event.target.closest('[data-preview]');
+			const downloadButton = event.target.closest('[data-download]');
+			if (previewButton) {
+				const asset = assets.find((item) => String(item.id) === previewButton.dataset.preview);
+				document.querySelector('#previewTitle').textContent = asset.name;
+				document.querySelector('#previewMeta').innerHTML = `<span>${typeNames[asset.type]}</span><span>${asset.size} · ${asset.meta}</span>`;
+				document.querySelector('#previewStage').style.setProperty('--preview-color', `var(--${asset.color === 'pink' ? 'pink' : asset.color === 'green' ? 'green' : 'cyan'})`);
+				document.querySelector('#previewStage .preview-glyph').textContent = asset.type === 'sfx' ? '♪' : '▶';
+				openModal('previewModal');
+			}
+			if (downloadButton) {
+				const asset = assets.find((item) => String(item.id) === downloadButton.dataset.download);
+				const link = document.createElement('a');
+				link.href = `/api/assets/${asset.id}/download`;
+				link.download = asset.originalName || asset.name;
+				link.click();
+			}
+		});
+
+		document.querySelector('#adminForm').addEventListener('submit', (event) => {
+			event.preventDefault();
+			const email = document.querySelector('#adminEmail').value;
+			const key = document.querySelector('#adminKey').value;
+			apiRequest('/api/auth/login', { method: 'POST', body: JSON.stringify({ email, password: key }) })
+				.then((session) => { if (!['admin', 'owner'].includes(session.user.role)) throw new Error('Publisher access required.'); saveSession(session); adminMode = true; document.querySelector('#appShell').classList.add('admin-mode'); closeModal('adminModal'); openModal('uploadModal'); })
+				.catch((error) => { document.querySelector('#adminMessage').textContent = error.message; });
+		});
+
+		document.querySelector('#uploadForm').addEventListener('submit', (event) => {
+			event.preventDefault();
+			const name = document.querySelector('#assetName').value.trim();
+			const type = document.querySelector('#assetType').value;
+			const file = document.querySelector('#assetFile').files[0];
+			if (!name || !file) return;
+			const formData = new FormData();
+			formData.append('name', name); formData.append('type', type); formData.append('assetFile', file);
+			apiRequest('/api/assets', { method: 'POST', body: formData })
+				.then((response) => { assets.unshift(mapAsset(response.asset, assets.length)); document.querySelector('#uploadForm').reset(); closeModal('uploadModal'); renderAssets(); })
+				.catch((error) => { document.querySelector('#adminMessage').textContent = error.message; });
+		});
+
+		loadAssets();
+
+		const canvas = document.querySelector('#heroCanvas');
+		if (window.THREE) {
+			const scene = new THREE.Scene();
+			const camera = new THREE.PerspectiveCamera(34, canvas.clientWidth / canvas.clientHeight, .1, 100);
+			camera.position.z = 4.5;
+			const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+			renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+			const group = new THREE.Group();
+			const sectionColors = {
+				all: [0xf07a3e, 0x1c2b4a],
+				'anime-clips': [0xff8a3d, 0x243454],
+				sfx: [0x83e6ac, 0x4fd4b1],
+				presets: [0xc39bff, 0xf09cff],
+				projects: [0x79b8ff, 0x74d9ff],
+				'lili-remake': [0xffb477, 0xff7d91],
+				'nevonae-remake': [0x71e7db, 0x6ca7ff]
+			};
+			const sectionModels = {
+				all: { outer: () => new THREE.IcosahedronGeometry(1.05, 1), inner: () => new THREE.IcosahedronGeometry(.64, 1) },
+				'anime-clips': { outer: () => new THREE.DodecahedronGeometry(1.08, 1), inner: () => new THREE.IcosahedronGeometry(.62, 1) },
+				sfx: { outer: () => new THREE.TorusKnotGeometry(.76, .18, 96, 14), inner: () => new THREE.TorusGeometry(.47, .08, 12, 48) },
+				presets: { outer: () => new THREE.OctahedronGeometry(1.1, 1), inner: () => new THREE.TetrahedronGeometry(.68, 1) },
+				projects: { outer: () => new THREE.BoxGeometry(1.55, 1.55, 1.55), inner: () => new THREE.EdgesGeometry(new THREE.BoxGeometry(.86, .86, .86)) },
+				'lili-remake': { outer: () => new THREE.ConeGeometry(.95, 1.65, 6), inner: () => new THREE.TorusGeometry(.53, .08, 12, 48) },
+				'nevonae-remake': { outer: () => new THREE.TorusGeometry(.82, .28, 18, 64), inner: () => new THREE.SphereGeometry(.5, 20, 20) }
+			};
+			function createSectionModel(section, colors) {
+				const model = sectionModels[section] || sectionModels.all;
+				const character = new THREE.Group();
+				const core = new THREE.Mesh(model.outer(), new THREE.MeshBasicMaterial({ color: colors[0], wireframe: true, transparent: true, opacity: .72 }));
+				const inner = new THREE.Mesh(model.inner(), new THREE.MeshBasicMaterial({ color: colors[1], wireframe: true, transparent: true, opacity: .38 }));
+				character.add(core, inner);
+				return character;
+			}
+			function setSectionModel(section) {
+				const colors = sectionColors[section] || sectionColors.all;
+				group.children.forEach((child) => child.traverse((part) => { if (part.geometry) part.geometry.dispose(); if (part.material) part.material.dispose(); }));
+				group.clear();
+				group.add(createSectionModel(section, colors));
+				group.scale.setScalar(section === 'projects' ? .78 : .9);
+			}
+			setSectionModel('all');
+			scene.add(group);
+			const particles = new THREE.Points(new THREE.BufferGeometry(), new THREE.PointsMaterial({ color: 0x9ab6ff, size: .018, transparent: true, opacity: .8 }));
+			const positions = []; for (let i = 0; i < 450; i += 1) { positions.push((Math.random() - .5) * 6, (Math.random() - .5) * 3.8, (Math.random() - .5) * 3); }
+			particles.geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3)); scene.add(particles);
+			function animate(time) { group.rotation.x = time * .00018; group.rotation.y = time * .00028; particles.rotation.y = time * .00003; renderer.render(scene, camera); requestAnimationFrame(animate); } requestAnimationFrame(animate);
+			window.addEventListener('resize', () => { renderer.setSize(canvas.clientWidth, canvas.clientHeight, false); camera.aspect = canvas.clientWidth / canvas.clientHeight; camera.updateProjectionMatrix(); });
+		}
+	</script>
+</body>
+</html>

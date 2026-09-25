@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Dragon Unit">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7f9"/>
+      <stop offset="50%" stop-color="#7c9cff"/>
+      <stop offset="100%" stop-color="#f678c7"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="24" fill="#070b14"/>
+  <path d="M36 92V38h20l14 18 14-18h20v54H84V62L68 80 52 62v30H36Z" fill="url(#bg)"/>
+  <circle cx="96" cy="34" r="8" fill="#83e6ac"/>
+</svg>
